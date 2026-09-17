@@ -8,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 
 @Configuration
 @Slf4j
@@ -19,8 +21,7 @@ public class FirebaseConfig {
     public void initialize() {
         try {
             if (FirebaseApp.getApps().isEmpty()) {
-                InputStream serviceAccount =
-                        new ClassPathResource("firebase-service-account.json.json").getInputStream();
+                InputStream serviceAccount = loadServiceAccount();
 
                 FirebaseOptions options = FirebaseOptions.builder()
                         .setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -33,5 +34,24 @@ public class FirebaseConfig {
             log.error("Failed to initialize Firebase Admin SDK", e);
             throw new IllegalStateException("Firebase initialization failed", e);
         }
+    }
+
+    private InputStream loadServiceAccount() throws IOException {
+        // Production: env var (base64-encoded JSON)
+        String base64 = System.getenv("FIREBASE_SERVICE_ACCOUNT_BASE64");
+        if (base64 != null && !base64.isBlank()) {
+            log.info("Loading Firebase credentials from FIREBASE_SERVICE_ACCOUNT_BASE64 env var.");
+            try {
+                byte[] decoded = Base64.getDecoder().decode(base64.trim());
+                return new ByteArrayInputStream(decoded);
+            } catch (IllegalArgumentException e) {
+                log.error("FIREBASE_SERVICE_ACCOUNT_BASE64 is not valid base64", e);
+                throw new IOException("Invalid base64 Firebase credentials", e);
+            }
+        }
+
+        // Local dev: classpath file
+        log.info("Loading Firebase credentials from classpath file.");
+        return new ClassPathResource("firebase-service-account.json").getInputStream();
     }
 }

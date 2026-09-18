@@ -52,6 +52,6 @@ public class FirebaseConfig {
 
         // Local dev: classpath file
         log.info("Loading Firebase credentials from classpath file.");
-        return new ClassPathResource("firebase-service-account.json").getInputStream();
+        return new ClassPathResource("firebase-service-account.json.json").getInputStream();
     }
 }

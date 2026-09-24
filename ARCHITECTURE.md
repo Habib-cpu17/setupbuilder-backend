@@ -76,7 +76,7 @@ FirebaseAuthenticationFilter runs before the Spring Security chain:
 
 SecurityConfig defines:
 - Public routes: /api/components/**, /api/builds/public, /api/users/* (GET only),
-  /api/curated, /uploads/**, /actuator/health
+  /api/curated, /uploads/**, /images/**, /actuator/health
 - Admin routes: /api/admin/** requires ROLE_ADMIN
 - Everything else requires authentication
 - CORS origins come from CORS_ALLOWED_ORIGINS env var (comma-separated)

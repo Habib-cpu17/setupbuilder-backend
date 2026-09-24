@@ -22,7 +22,8 @@
    - Runtime: Docker
    - Root Directory: (leave blank - Dockerfile is at repo root)
    - Dockerfile Path: ./Dockerfile
-4. Under Environment, add every variable from ENVIRONMENT.md.
+4. Under Environment, add every variable from ENVIRONMENT.md (including
+   APP_BASE_URL so component images resolve to the backend's public URL).
 5. Click Create Web Service.
 
 ## 3. Base64-encode the Firebase Credentials

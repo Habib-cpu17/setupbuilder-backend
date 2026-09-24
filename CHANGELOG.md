@@ -97,6 +97,21 @@ All notable changes to the SetupBuilder backend, organized by week.
 ### Changed
 - User entity gained avatarUrl, bannerUrl, bio, location, websiteUrl
 
+## [Week 11] - 2026-09-21 to 2026-09-25
+
+### Added
+- Per-product component images for all 203 catalog items, bundled under
+  src/main/resources/static/images/components/ (139 files, max 800px JPEG)
+- app.image-base-url property controlling how component image URLs are built
+  (local: http://localhost:8080, prod: ${APP_BASE_URL})
+
+### Changed
+- DataSeeder now maps each component to a real product photo by model (CPU by
+  socket, RAM/storage/PSU by product line). Same-chassis/same-line models share
+  one photo (e.g. cm-mwe-bronze.jpg, nvidia-rtx-4060ti.jpg). Falls back to the
+  category Unsplash image when a photo is missing.
+- SecurityConfig permits GET /images/** so component photos load in <img> tags
+
 ## [Week 10] - 2025-10-25 to 2025-10-29
 
 ### Changed

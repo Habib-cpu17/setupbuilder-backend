@@ -51,6 +51,7 @@ This file is gitignored - it holds secrets that must not be committed.
     spring.datasource.password=setupbuilder_pass
     app.admin.emails=your-email@example.com
     app.cors.allowed-origins=http://localhost:5173
+    app.image-base-url=http://localhost:8080
 
 ### 3. Place firebase-service-account.json
 
@@ -107,6 +108,10 @@ See TROUBLESHOOTING.md for every error hit during development and its fix.
 - Schema management: Hibernate ddl-auto=update - no Flyway or Liquibase.
 - File uploads: stored on local disk under uploads/, served via Spring's
   static resource handler at /uploads/**. Ephemeral on Render's free tier.
+- Component images: bundled per-product photos live under
+  src/main/resources/static/images/components/ (served at /images/components/**).
+  DataSeeder builds each component's imageUrl from app.image-base-url.
+  On Render set APP_BASE_URL to the backend's public URL (see ENVIRONMENT.md).
 
 ## License
 

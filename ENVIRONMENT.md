@@ -11,6 +11,7 @@
 | GEMINI_API_KEY | Yes | Google AI Studio API key (AIzaSy...) |
 | FIREBASE_SERVICE_ACCOUNT_BASE64 | Yes | Base64-encoded Firebase service account JSON |
 | ADMIN_EMAILS | Optional | Comma-separated emails auto-promoted to ADMIN on login |
+| APP_BASE_URL | Yes | Backend public URL used as the base for component image URLs, e.g. https://setupbuilder-backend.onrender.com |
 | CORS_ALLOWED_ORIGINS | Yes | Comma-separated origins, e.g. https://frontend-ponc.onrender.com |
 | JAVA_TOOL_OPTIONS | Optional | -Xmx256m to fit within the free-tier RAM |
 
@@ -26,6 +27,7 @@ Not committed. Create manually. See README.md for the exact contents.
 | spring.datasource.password | setupbuilder_pass |
 | app.admin.emails | your-email@example.com |
 | app.cors.allowed-origins | http://localhost:5173 |
+| app.image-base-url | http://localhost:8080 |
 
 ## Backend - Base (application.properties, committed)
 
@@ -44,6 +46,7 @@ Committed with placeholder syntax only - never contains secrets.
 
     app.admin.emails=${ADMIN_EMAILS:}
     app.cors.allowed-origins=${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+    app.image-base-url=${APP_BASE_URL:http://localhost:8080}
 
     pricing.provider=mock
     pricing.refresh.enabled=true
